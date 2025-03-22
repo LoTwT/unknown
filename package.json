@@ -1,22 +1,50 @@
 {
   "name": "unknown",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "type": "module",
-  "scripts": {
-    "dev": "vite"
-  },
-  "keywords": [],
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.6.5",
+  "description": "",
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.6.5",
+  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "prepare": "simple-git-hooks",
+    "prepublishOnly": "pnpm build",
+    "release": "bumpp && pnpm publish",
+    "up": "taze latest -I -f",
+    "prettier": "prettier --write .",
+    "lint": "eslint .",
+    "play": "pnpm -C playground run dev"
+  },
   "devDependencies": {
+    "@ayingott/eslint-config": "^2.0.1",
+    "@ayingott/prettier-config": "^2.1.2",
+    "bumpp": "^10.1.0",
+    "eslint": "^9.23.0",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
+    "simple-git-hooks": "^2.12.1",
+    "taze": "^19.0.2",
     "vite": "^6.2.2"
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
       "esbuild"
+    ],
+    "onlyBuiltDependencies": [
+      "simple-git-hooks"
     ]
-  }
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm exec lint-staged"
+  },
+  "lint-staged": {
+    "*": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "prettier": "@ayingott/prettier-config"
 }
